@@ -1,6 +1,9 @@
 #include<iostream>
 #include<map>
 #include<string>
+#include<list>
+#include<vector>
+
 
 using std::cout;
 using std::cin;
@@ -10,12 +13,13 @@ using std::pair;
 
 
 void main() {
+	std::vector<int> lst {12,234,44323,4224534,23432};
 	std::map<string,int> DBAse = {
-	pair<string,int>("e645er",00012),
-	pair<string,int>("e645er",00014),
-	pair<string,int>("e645er",00016),
-	pair<string,int>("r555et",00012),
-	pair<string,int>("r555et",00012),
+	pair<string,int>("e645er",lst[1]),
+	pair<string,int>("e645er",lst[0]),
+	pair<string,int>("e645er",lst[2]),
+	pair<string,int>("r555et",lst[1]),
+	pair<string,int>("r555et",lst[4]),
 
 	};
 
