@@ -46,7 +46,6 @@ void main()
 
 #endif // STL_LIST
 
-
 #ifdef STL_ARRAY
 	const int N = 5;
 	/*int arr[N] = { 3,5,8 };
