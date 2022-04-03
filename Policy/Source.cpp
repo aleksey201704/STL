@@ -61,6 +61,7 @@ void load(std::map<string, std::list<Crime>>& base,const string& filename);
 int check_prime();
 string input_place();
 string input_plate();
+void number_selection(std::map<string,std::list<Crime>>& base); // Выбор авто по номеру
 void menu(std::map<string, std::list<Crime>>& base,const string& filename);
 //void menu(std::map<string, std::list<Crime>>& base, filename);
 //#define ADD_base
@@ -92,6 +93,27 @@ void main() {
 #endif // ADD_base
 	
 }
+void number_selection(std::map<string, std::list<Crime>>& base) {
+	string nomer_car;
+	cout << "\n--------------------------------------\n"<< endl;
+	cout << "Введите номер авто: "; cin >> nomer_car;
+	
+	for (std::map<std::string, std::list<Crime>>::const_iterator it = base.begin(); it != base.end(); ++it)
+	{
+		if (it->first == nomer_car) 
+		{
+			for (std::list<Crime>::const_iterator jt = it->second.begin(); jt != it->second.end(); ++jt)
+			{
+				cout << *jt << "; \n";
+			}
+			cout << "\n--------------------------------------\n";
+		}
+		
+	}
+	
+	system("PAUSE");
+}
+
 void menu(std::map<string, std::list<Crime>>& base,const string& filename) {
 	char key;
 	do
@@ -111,7 +133,7 @@ void menu(std::map<string, std::list<Crime>>& base,const string& filename) {
 		switch (key)
 		{
 		case '1': print(base); break;
-		case '2': cout << "НЕ добавлена"; break;
+		case '2': number_selection(base); break;
 		case '3': cout << "НЕ добавлена"; break;
 		case '4': cout << "НЕ добавлена"; break;
 		case '5': cout << "НЕ добавлена"; break;
