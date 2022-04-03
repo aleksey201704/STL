@@ -61,9 +61,15 @@ void load(std::map<string, std::list<Crime>>& base,const string& filename);
 int check_prime();
 string input_place();
 string input_plate();
-void number_selection(std::map<string,std::list<Crime>>& base); // Выбор авто по номеру
+
+// Выбор авто по номеру
+void number_selection(std::map<string,std::list<Crime>>& base); 
+// Выбор авто по диапазону
+void number_range(std::map<string, std::list<Crime>>& base);
+
 void menu(std::map<string, std::list<Crime>>& base,const string& filename);
-//void menu(std::map<string, std::list<Crime>>& base, filename);
+
+
 //#define ADD_base
 
 void main() {
@@ -72,14 +78,18 @@ void main() {
 	SetConsoleOutputCP(1251);
 
 	
-	std::map<string, std::list<Crime>> base /*=
+	std::map<string, std::list<Crime>> base; 
+
+	/*=
 	{
 		pair<string,std::list<Crime>>("a555nn",{Crime(1,"ул.ЛЕНИНА"),Crime(2,"ул. Октябрят")}),
 		pair<string,std::list<Crime>>("r234er",{Crime(5,"ул.Game"),Crime(6,"Street")}),
 		pair<string,std::list<Crime>>("e321tt",{Crime(4,"ул.Революции")})
-	}*/;
+	}*/
+	
 	load(base, "base.txt");
 	menu(base, "base.txt");
+
 #ifdef ADD_base
 	print(base);
 	
@@ -93,6 +103,18 @@ void main() {
 #endif // ADD_base
 	
 }
+void number_range(std::map<string, std::list<Crime>>& base) {
+	string num_range_from;
+	string num_range_to;
+	cout << "\n--------------------------------------\n"<< endl;
+	cout << "Введите диапазон от авто: "; cin >> num_range_from;
+	cout << "Введите диапазон до авто: "; cin >> num_range_to;
+	cout << "\n--------------------------------------\n"<< endl;
+	
+	system("PAUSE");
+
+}
+
 void number_selection(std::map<string, std::list<Crime>>& base) {
 	string nomer_car;
 	cout << "\n--------------------------------------\n"<< endl;
@@ -121,7 +143,7 @@ void menu(std::map<string, std::list<Crime>>& base,const string& filename) {
 		system("CLS");
 		cout << "1. Вывод всей базый:" << endl;
 		cout << "2. Вывод по номерному знаку:" << endl;
-		cout << "3. Вывод по диапозону номеров:" << endl;
+		cout << "3. Вывод по диапазону номеров:" << endl;
 		cout << "4. Выборка по шаблону:" << endl;
 		cout << "5. Выборка по правонарушению:" << endl;
 		cout << "6. Выборка по адресам:" << endl;
@@ -134,7 +156,7 @@ void menu(std::map<string, std::list<Crime>>& base,const string& filename) {
 		{
 		case '1': print(base); break;
 		case '2': number_selection(base); break;
-		case '3': cout << "НЕ добавлена"; break;
+		case '3': number_range(base); break;
 		case '4': cout << "НЕ добавлена"; break;
 		case '5': cout << "НЕ добавлена"; break;
 		case '6': cout << "НЕ добавлена"; break;
