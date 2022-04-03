@@ -144,6 +144,9 @@
   <ItemGroup>
     <Text Include="base.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Home_Work.JPG" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
