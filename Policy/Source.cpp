@@ -1,10 +1,12 @@
-#include<iostream>
+п»ї#include<iostream>
 #include<map>
 #include<string>
 #include<list>
 #include<vector>
 #include<fstream>
 #include<Windows.h>
+#include<conio.h>
+
 
 
 
@@ -16,13 +18,13 @@ using std::pair;
 
 const std::map<int, string> CRIMES =
 {
-pair<int,string>(1,"Проезд на красный"),
-pair<int,string>(2,"Превышение скорости"),
-pair<int,string>(3,"езда по всетрчной полосе"),
-pair<int,string>(4,"Дрифт на перекресте"),
-pair<int,string>(5,"Парковка в неположенном месте"),
-pair<int,string>(6,"Оскобрелние офицера"),
-pair<int,string>(7,"Вождение в нетрезвом состоянии")
+pair<int,string>(1,"РџСЂРѕРµР·Рґ РЅР° РєСЂР°СЃРЅС‹Р№"),
+pair<int,string>(2,"РџСЂРµРІС‹С€РµРЅРёРµ СЃРєРѕСЂРѕСЃС‚Рё"),
+pair<int,string>(3,"РµР·РґР° РїРѕ РІСЃРµС‚СЂС‡РЅРѕР№ РїРѕР»РѕСЃРµ"),
+pair<int,string>(4,"Р”СЂРёС„С‚ РЅР° РїРµСЂРµРєСЂРµСЃС‚Рµ"),
+pair<int,string>(5,"РџР°СЂРєРѕРІРєР° РІ РЅРµРїРѕР»РѕР¶РµРЅРЅРѕРј РјРµСЃС‚Рµ"),
+pair<int,string>(6,"РћСЃРєРѕР±СЂРµР»РЅРёРµ РѕС„РёС†РµСЂР°"),
+pair<int,string>(7,"Р’РѕР¶РґРµРЅРёРµ РІ РЅРµС‚СЂРµР·РІРѕРј СЃРѕСЃС‚РѕСЏРЅРёРё")
 };
 
 class Crime
@@ -58,7 +60,9 @@ void save(const std::map<string, std::list<Crime>>& base, const string& filename
 void load(std::map<string, std::list<Crime>>& base,const string& filename);
 int check_prime();
 string input_place();
-
+string input_plate();
+void menu(std::map<string, std::list<Crime>>& base,const string& filename);
+//void menu(std::map<string, std::list<Crime>>& base, filename);
 //#define ADD_base
 
 void main() {
@@ -69,31 +73,66 @@ void main() {
 	
 	std::map<string, std::list<Crime>> base /*=
 	{
-		pair<string,std::list<Crime>>("a555nn",{Crime(1,"ул.ЛЕНИНА"),Crime(2,"ул. Октябрят")}),
-		pair<string,std::list<Crime>>("r234er",{Crime(5,"ул.Game"),Crime(6,"Street")}),
-		pair<string,std::list<Crime>>("e321tt",{Crime(4,"ул.Революции")})
+		pair<string,std::list<Crime>>("a555nn",{Crime(1,"СѓР».Р›Р•РќРРќРђ"),Crime(2,"СѓР». РћРєС‚СЏР±СЂСЏС‚")}),
+		pair<string,std::list<Crime>>("r234er",{Crime(5,"СѓР».Game"),Crime(6,"Street")}),
+		pair<string,std::list<Crime>>("e321tt",{Crime(4,"СѓР».Р РµРІРѕР»СЋС†РёРё")})
 	}*/;
-
+	load(base, "base.txt");
+	menu(base, "base.txt");
 #ifdef ADD_base
 	print(base);
-	string lincence_place;
+	
 	int id;
-	string place;
-	cout << "Введите номер автомобиля: "; cin >> lincence_place;
 	id=check_prime();
-	/*cout << "Введите место происшетсвия: "; 
+	/*cout << "Р’РІРµРґРёС‚Рµ РјРµСЃС‚Рѕ РїСЂРѕРёСЃС€РµС‚СЃРІРёСЏ: "; 
 	cin.ignore();
 	std::getline(std::cin,place);*/
-	base[lincence_place].push_back(Crime(id,input_place()));
+	base[input_plate()].push_back(Crime(id,input_place()));
 
 #endif // ADD_base
 	
-	load(base,"base.txt");
-	
-	print(base);
-	//save(base,"base.txt");
+}
+void menu(std::map<string, std::list<Crime>>& base,const string& filename) {
+	char key;
+	do
+	{
+		system("CLS");
+		cout << "1. Р’С‹РІРѕРґ РІСЃРµР№ Р±Р°Р·С‹Р№:" << endl;
+		cout << "2. Р’С‹РІРѕРґ РїРѕ РЅРѕРјРµСЂРЅРѕРјСѓ Р·РЅР°РєСѓ:" << endl;
+		cout << "3. Р’С‹РІРѕРґ РїРѕ РґРёР°РїРѕР·РѕРЅСѓ РЅРѕРјРµСЂРѕРІ:" << endl;
+		cout << "4. Р’С‹Р±РѕСЂРєР° РїРѕ С€Р°Р±Р»РѕРЅСѓ:" << endl;
+		cout << "5. Р’С‹Р±РѕСЂРєР° РїРѕ РїСЂР°РІРѕРЅР°СЂСѓС€РµРЅРёСЋ:" << endl;
+		cout << "6. Р’С‹Р±РѕСЂРєР° РїРѕ Р°РґСЂРµСЃР°Рј:" << endl;
+		cout << "7. РЎРѕС…СЂР°РЅРЅРµРё Р±Р°Р·С‹:" << endl;
+		cout << "8. Р—Р°РіСЂСѓР·РєР° Р±Р°Р·С‹:" << endl;
+		cout << "9. Р”РѕСЋР°РІР»РµРЅРёРµ Р·Р°РїРёСЃРё:" << endl;
+
+		key = _getch();
+		switch (key)
+		{
+		case '1': print(base); break;
+		case '2': cout << "РќР• РґРѕР±Р°РІР»РµРЅР°"; break;
+		case '3': cout << "РќР• РґРѕР±Р°РІР»РµРЅР°"; break;
+		case '4': cout << "РќР• РґРѕР±Р°РІР»РµРЅР°"; break;
+		case '5': cout << "РќР• РґРѕР±Р°РІР»РµРЅР°"; break;
+		case '6': cout << "РќР• РґРѕР±Р°РІР»РµРЅР°"; break;
+		case '7': save(base,filename); break;
+		case '8': load(base,filename); break;
+		case '9': base[input_plate()].push_back(Crime(check_prime(),input_place())); break;
+
+
+		default:
+			break;
+		}
+	} while (key!=27);
 
 }
+string input_plate() {
+	string lincence_plate;
+	cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ Р°РІС‚РѕРјРѕР±РёР»СЏ: "; cin >> lincence_plate;
+	return lincence_plate;
+}
+
 void load(std::map<string, std::list<Crime>>& base, const string& filename) 
 {
 	
@@ -106,17 +145,16 @@ void load(std::map<string, std::list<Crime>>& base, const string& filename)
 		std::string all_crimes;
 		std::getline(fin, lincence_plate, ':');
 		std::getline(fin, all_crimes);
-		//if (lincence_plate.empty() || all_crimes.empty())continue;
-		
-		for (int start = -1, end = 0; start != std::string::npos; start = end)
+		if (lincence_plate.empty() || all_crimes.empty())continue;
+		all_crimes.erase(all_crimes.find(';'));
+		for (int start = -1, end = 0; end != std::string::npos; start = end)
 		{
-			
 			start++;
 			end = all_crimes.find(',', start);
 			std::string place = all_crimes.substr(start, end - start);
 			int id = std::stoi(place,0,10);
 			place.erase(0, 1);
-			place.erase(place.find_last_of(';'));
+			//place.erase(place.find_last_of(';'));
 			base[lincence_plate].push_back(Crime(id, place));
 		}
 
@@ -153,7 +191,7 @@ void save(const std::map<string, std::list<Crime>>& base, const string& filename
 
 string input_place() {
 	string place;
-	cout << "Введите место происшетсвия: ";
+	cout << "Р’РІРµРґРёС‚Рµ РјРµСЃС‚Рѕ РїСЂРѕРёСЃС€РµС‚СЃРІРёСЏ: ";
 	cin.ignore();
 	std::getline(std::cin, place);
 	return place;
@@ -166,13 +204,13 @@ int check_prime() {
 		cout << i.first << "\t" << i.second << endl;
 	}
 	int id;
-	cout << "Выберите правнарушение: "; cin >> id;
+	cout << "Р’С‹Р±РµСЂРёС‚Рµ РїСЂР°РІРЅР°СЂСѓС€РµРЅРёРµ: "; cin >> id;
 	return id;
 }
 
 void print(const std::map<string, std::list<Crime>>& base) {
 	
-	//system("CLS");
+	system("CLS");
 	for (std::map<std::string, std::list<Crime>>::const_iterator it = base.begin(); it != base.end(); ++it)
 	{
 		cout << it->first << ": \n";
@@ -182,4 +220,6 @@ void print(const std::map<string, std::list<Crime>>& base) {
 		}
 		cout << "\n--------------------------------------\n";
 	}
+
+	system("PAUSE");
 }
