@@ -110,7 +110,19 @@ void number_range(std::map<string, std::list<Crime>>& base) {
 	cout << "Введите диапазон от авто: "; cin >> num_range_from;
 	cout << "Введите диапазон до авто: "; cin >> num_range_to;
 	cout << "\n--------------------------------------\n"<< endl;
-	
+	for (std::map<string, std::list<Crime>>::const_iterator it = base.begin();
+		it != base.end(); ++it ) {
+		
+		if (it->first == num_range_from || it->first == num_range_to)
+		{
+			cout << "Номер машины: " << it->first << endl;
+			for (std::list<Crime>::const_iterator jt = it->second.begin(); jt != it->second.end(); ++jt)
+			{
+				cout << *jt << "; \n";
+			}
+			cout << "\n--------------------------------------\n";
+		}
+	}
 	system("PAUSE");
 
 }
