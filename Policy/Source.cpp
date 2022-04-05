@@ -49,6 +49,8 @@ std::ostream& operator << (std::ostream& os, const Crime& obj)
 	return os << CRIMES.at(obj.get_id()) << "-" << obj.get_place();
 };
 
+
+
 std::ofstream& operator << (std::ofstream& ofs, const Crime& obj) {
 	
 	ofs << obj.get_id() << obj.get_place();
@@ -87,7 +89,7 @@ void main() {
 		pair<string,std::list<Crime>>("e321tt",{Crime(4,"ул.Революции")})
 	}*/
 	
-	load(base, "base.txt");
+	load(base, "bоase.txt");
 	menu(base, "base.txt");
 
 #ifdef ADD_base
@@ -106,23 +108,35 @@ void main() {
 void number_range(std::map<string, std::list<Crime>>& base) {
 	string num_range_from;
 	string num_range_to;
+	load(base,"base.txt");
+	std::map<string, std::list<Crime>> Newbase = base;
+	
 	cout << "\n--------------------------------------\n"<< endl;
 	cout << "Введите диапазон от авто: "; cin >> num_range_from;
 	cout << "Введите диапазон до авто: "; cin >> num_range_to;
 	cout << "\n--------------------------------------\n"<< endl;
-	for (std::map<string, std::list<Crime>>::const_iterator it = base.begin();
-		it != base.end(); ++it ) {
-		
-		if (it->first == num_range_from || it->first == num_range_to)
-		{
-			cout << "Номер машины: " << it->first << endl;
-			for (std::list<Crime>::const_iterator jt = it->second.begin(); jt != it->second.end(); ++jt)
-			{
-				cout << *jt << "; \n";
-			}
-			cout << "\n--------------------------------------\n";
-		}
-	}
+
+	pair <std::map <string, std::list<Crime>>::const_iterator,
+		std::map <string, std::list<Crime>>::const_iterator > ret;
+	ret = Newbase.equal_range(num_range_from);
+	
+	//std::cout << ret.first->second << '\n';
+
+	cout << ret.second->first;
+	//cout << ret.first->first << "--------------";
+	//for (std::map<string, std::list<Crime>>::const_iterator it = base.begin();
+	//	it != base.end(); ++it ) {
+	//	
+	//	if (it->first == num_range_from || it->first == num_range_to)
+	//	{
+	//		cout << "Номер машины: " << it->first << endl;
+	//		for (std::list<Crime>::const_iterator jt = it->second.begin(); jt != it->second.end(); ++jt)
+	//		{
+	//			cout << *jt << "; \n";
+	//		}
+	//		cout << "\n--------------------------------------\n";
+	//	}
+	//}
 	system("PAUSE");
 
 }
@@ -210,7 +224,7 @@ void load(std::map<string, std::list<Crime>>& base, const string& filename)
 			std::string place = all_crimes.substr(start, end - start);
 			int id = std::stoi(place,0,10);
 			place.erase(0, 1);
-			//place.erase(place.find_last_of(';'));
+			
 			base[lincence_plate].push_back(Crime(id, place));
 		}
 
