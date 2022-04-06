@@ -80,16 +80,18 @@ void main() {
 	SetConsoleOutputCP(1251);
 
 	
-	std::map<string, std::list<Crime>> base; 
+	std::map<string, std::list<Crime>> base
 
-	/*=
-	{
-		pair<string,std::list<Crime>>("a555nn",{Crime(1,"ул.ЛЕНИНА"),Crime(2,"ул. Октябрят")}),
-		pair<string,std::list<Crime>>("r234er",{Crime(5,"ул.Game"),Crime(6,"Street")}),
-		pair<string,std::list<Crime>>("e321tt",{Crime(4,"ул.Революции")})
-	}*/
-	
-	load(base, "bоase.txt");
+		/*		=
+			{
+				pair<string,std::list<Crime>>("a555nn",{Crime(1,"ул.ЛЕНИНА"),Crime(2,"ул. Октябрят")}),
+				pair<string,std::list<Crime>>("r234er",{Crime(5,"ул.Game"),Crime(6,"Street")}),
+				pair<string,std::list<Crime>>("e321tt",{Crime(4,"ул.Революции")}),
+				pair<string,std::list<Crime>>("q456we",{Crime(3,"ул.Зеленая")})
+			};
+			*/;
+	//save(base, "base.txt");
+	load(base, "base.txt");
 	menu(base, "base.txt");
 
 #ifdef ADD_base
@@ -118,11 +120,20 @@ void number_range(std::map<string, std::list<Crime>>& base) {
 
 	pair <std::map <string, std::list<Crime>>::const_iterator,
 		std::map <string, std::list<Crime>>::const_iterator > ret;
-	ret = Newbase.equal_range(num_range_from);
-	
-	//std::cout << ret.first->second << '\n';
+	ret = Newbase.equal_range("e321tt");
+	std::map<std::string, std::list<Crime>>::const_iterator it;
+	it = base.begin();
+		while (ret.first->first != it->first) { cout << it->first << endl; ++it; }
+		//cout << it->first<<endl;
+		//cout << ret.first->first << "ГРаница первая" << endl;
 
-	cout << ret.second->first;
+	
+	
+
+	cout << ret.second->first << "Вторая граница" << endl;
+	//cout << ret.first->second<< "ГРаница первая";
+
+
 	//cout << ret.first->first << "--------------";
 	//for (std::map<string, std::list<Crime>>::const_iterator it = base.begin();
 	//	it != base.end(); ++it ) {
