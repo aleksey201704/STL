@@ -7,9 +7,6 @@
 #include<Windows.h>
 #include<conio.h>
 
-
-
-
 using std::cout;
 using std::cin;
 using std::endl;
@@ -71,14 +68,12 @@ void number_range(std::map<string, std::list<Crime>>& base);
 
 void menu(std::map<string, std::list<Crime>>& base,const string& filename);
 
-
 //#define ADD_base
 
 void main() {
 	//setlocale(LC_ALL, "");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-
 	
 	std::map<string, std::list<Crime>> base
 
@@ -110,6 +105,7 @@ void main() {
 void number_range(std::map<string, std::list<Crime>>& base) {
 	string num_range_from;
 	string num_range_to;
+	bool t=0;
 	load(base,"base.txt");
 	std::map<string, std::list<Crime>> Newbase = base;
 	
@@ -120,34 +116,20 @@ void number_range(std::map<string, std::list<Crime>>& base) {
 
 	pair <std::map <string, std::list<Crime>>::const_iterator,
 		std::map <string, std::list<Crime>>::const_iterator > ret;
+	pair <std::map <string, std::list<Crime>>::const_iterator,
+		std::map <string, std::list<Crime>>::const_iterator > ret_to;
+    std::map<std::string, std::list<Crime>>::const_iterator it;
+	
 	ret = Newbase.equal_range("e321tt");
-	std::map<std::string, std::list<Crime>>::const_iterator it;
+	ret_to = base.equal_range("r234er");
 	it = base.begin();
-		while (ret.first->first != it->first) { cout << it->first << endl; ++it; }
-		//cout << it->first<<endl;
-		//cout << ret.first->first << "ГРаница первая" << endl;
+	// Диапозон ОТ и ДО
+	for(it; it != base.end();++it) {
 
-	
-	
+		if (ret.first->first == it->first) t = true;
+		if (t) { cout << it->first << endl; if (ret_to.first->first == it->first) break; }
+	}
 
-	cout << ret.second->first << "Вторая граница" << endl;
-	//cout << ret.first->second<< "ГРаница первая";
-
-
-	//cout << ret.first->first << "--------------";
-	//for (std::map<string, std::list<Crime>>::const_iterator it = base.begin();
-	//	it != base.end(); ++it ) {
-	//	
-	//	if (it->first == num_range_from || it->first == num_range_to)
-	//	{
-	//		cout << "Номер машины: " << it->first << endl;
-	//		for (std::list<Crime>::const_iterator jt = it->second.begin(); jt != it->second.end(); ++jt)
-	//		{
-	//			cout << *jt << "; \n";
-	//		}
-	//		cout << "\n--------------------------------------\n";
-	//	}
-	//}
 	system("PAUSE");
 
 }
