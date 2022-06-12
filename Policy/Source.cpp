@@ -65,8 +65,13 @@ string input_plate();
 void number_selection(std::map<string,std::list<Crime>>& base); 
 // Выбор авто по диапазону
 void number_range(std::map<string, std::list<Crime>>& base);
+// Выбор по правонарушению
+void offenses(std::map<string, std::list<Crime>>& base);
+// Выбор по адресу;
+void specified_address(std::map<string, std::list<Crime>>& base);
 
 void menu(std::map<string, std::list<Crime>>& base,const string& filename);
+
 
 //#define ADD_base
 
@@ -114,21 +119,21 @@ void number_range(std::map<string, std::list<Crime>>& base) {
 	cout << "Введите диапазон до авто: "; cin >> num_range_to;
 	cout << "\n--------------------------------------\n"<< endl;
 
-	pair <std::map <string, std::list<Crime>>::const_iterator,
-		std::map <string, std::list<Crime>>::const_iterator > ret;
-	pair <std::map <string, std::list<Crime>>::const_iterator,
-		std::map <string, std::list<Crime>>::const_iterator > ret_to;
-    std::map<std::string, std::list<Crime>>::const_iterator it;
-	
-	ret = Newbase.equal_range("e321tt");
-	ret_to = base.equal_range("r234er");
-	it = base.begin();
-	// Диапозон ОТ и ДО
-	for(it; it != base.end();++it) {
+	//pair <std::map <string, std::list<Crime>>::const_iterator,
+	//	std::map <string, std::list<Crime>>::const_iterator > ret;
+	//pair <std::map <string, std::list<Crime>>::const_iterator,
+	//	std::map <string, std::list<Crime>>::const_iterator > ret_to;
+ //   std::map<std::string, std::list<Crime>>::const_iterator it;
+	//
+	//ret = Newbase.equal_range(num_range_from);
+	//ret_to = base.equal_range(num_range_to);
+	//it = base.begin();
+	//// Диапозон ОТ и ДО
+	//for(it; it != base.end();++it) {
 
-		if (ret.first->first == it->first) t = true;
-		if (t) { cout << it->first << endl; if (ret_to.first->first == it->first) break; }
-	}
+	//	if (ret.first->first == it->first) t = true;
+	//	if (t) { cout << it->first << endl; if (ret_to.first->first == it->first) break; }
+	//}
 
 	system("PAUSE");
 
@@ -155,6 +160,50 @@ void number_selection(std::map<string, std::list<Crime>>& base) {
 	system("PAUSE");
 }
 
+void specified_address(std::map<string, std::list<Crime>>& base) 
+{
+	string number_adrres;
+	cout << "\n--------------------------------------\n" << endl;
+	cout << "Введите адрес правонарушений: "; cin >> number_adrres;
+	for (std::map<std::string, std::list<Crime>>::const_iterator it = base.begin(); it != base.end(); ++it)
+	{
+		//cout << it->first << endl;
+
+		for (std::list<Crime>::const_iterator jt = it->second.begin(); jt != it->second.end(); ++jt)
+		{
+			if (number_adrres == jt->get_place())
+			{
+				cout << it->first << " ";
+				cout << jt->get_place() << endl;
+			}
+			//cout << jt->get_place()<<endl;
+		}
+	}
+	
+	system("PAUSE");
+
+}
+void offenses(std::map<string, std::list<Crime>>& base) {
+	int n;
+	string name_car;
+	cout << "Введите номер правонарушения: "; cin >> n;
+	//load(base, "base.txt");
+	for (std::map<std::string, std::list<Crime>>::const_iterator it = base.begin(); it != base.end(); ++it)
+	{
+		for (std::list<Crime>::const_iterator jt = it->second.begin(); jt != it->second.end(); ++jt)
+		{
+			
+			if (jt->get_id() == n) { 
+				if (name_car == jt->get_place())break;
+				cout << it->first << "---" << jt->get_place() << endl; 
+				name_car = jt->get_place();
+			}
+		}
+	}
+
+	system("PAUSE");
+}
+
 void menu(std::map<string, std::list<Crime>>& base,const string& filename) {
 	char key;
 	do
@@ -177,8 +226,8 @@ void menu(std::map<string, std::list<Crime>>& base,const string& filename) {
 		case '2': number_selection(base); break;
 		case '3': number_range(base); break;
 		case '4': cout << "НЕ добавлена"; break;
-		case '5': cout << "НЕ добавлена"; break;
-		case '6': cout << "НЕ добавлена"; break;
+		case '5': offenses(base); break;
+		case '6': specified_address(base);  break;
 		case '7': save(base,filename); break;
 		case '8': load(base,filename); break;
 		case '9': base[input_plate()].push_back(Crime(check_prime(),input_place())); break;
